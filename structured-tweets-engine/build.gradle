@@ -1,0 +1,21 @@
+project(":structured-tweets-engine") {
+
+    version = structuredTweetsVersion
+
+    dependencies {
+        compile ("org.tiogasolutions.dev:tioga-dev-common:+")
+    }
+
+    apply(from: urlCache.get("https://raw.githubusercontent.com/tioga/build-scripts/master/build-config-deployer.gradle"))
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.tiogasolutions.dev:tioga-dev-common:5.2.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tiogasolutions.dev/tioga-dev-common/5.2.2/dcad5cc4d89cad8bda7a0f5ed3635040b55f606e/tioga-dev-common-5.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tiogasolutions.dev/tioga-dev-common/5.2.2/32041f0f54dba0c262dc968ba10b3d3935f530d1/tioga-dev-common-5.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

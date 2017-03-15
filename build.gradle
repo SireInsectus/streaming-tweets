@@ -1,0 +1,47 @@
+plugins {
+    id "com.github.ben-manes.versions" version "0.8"
+    id "org.hidetake.ssh" version "1.1.2"
+    id "com.kageiit.url-cache" version "1.0.0"
+}
+
+wrapper {
+    gradleVersion = '2.9'
+}
+
+apply(from: urlCache.get("https://raw.githubusercontent.com/tioga/build-scripts/master/build-config-java.gradle"))
+
+subprojects {
+
+    apply(from: urlCache.get("https://raw.githubusercontent.com/tioga/build-scripts/master/build-config-versions.gradle"))
+    apply plugin: "project-report"
+
+    group = "org.tiogasolutions.skeleton"
+
+    targetCompatibility = "1.8"
+    sourceCompatibility = "1.8"
+
+    configurations.all({
+        resolutionStrategy {
+            if (System.getProperty("no-fail-version-conflict") != "true") {
+                failOnVersionConflict()
+            }
+            force(
+            )
+        }
+    })
+
+    dependencies {
+        testCompile("org.testng:testng:6.8.21")
+    }
+
+    ext {
+        // This is the primary version for the app
+        // which does not include pub, client, senders.
+        structuredTweetsVersion = "1.0.0"
+
+        pomProjectDescription = "Tioga Solutions"
+        pomUrl = 'https://www.tiogasolutions.org'
+        pomScmUrl = "https://github.com/tioga"
+        pomScmConnection = "https://github.com/tioga/skeleton.git"
+    }
+}
