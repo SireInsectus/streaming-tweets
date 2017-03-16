@@ -1,4 +1,4 @@
-project(":structured-tweets-kernel") {
+project(":streaming-tweets-kernel") {
 
     version = structuredTweetsVersion
 

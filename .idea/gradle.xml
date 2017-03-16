@@ -11,8 +11,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/structured-tweets-engine" />
-            <option value="$PROJECT_DIR$/structured-tweets-kernel" />
+            <option value="$PROJECT_DIR$/streaming-tweets-engine" />
+            <option value="$PROJECT_DIR$/streaming-tweets-kernel" />
           </set>
         </option>
       </GradleProjectSettings>
