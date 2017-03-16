@@ -1,4 +1,4 @@
-package com.jacobparr.twitter.stream;
+package com.jacobparr.twitter.streaming;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

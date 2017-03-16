@@ -1,1 +1,1 @@
-include "streaming-tweets-kernel", "streaming-tweets-engine"
+include "streaming-tweets-server"

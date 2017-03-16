@@ -3,12 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-engine/streaming-tweets-engine.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-engine/streaming-tweets-engine.iml" group="streaming-tweets-engine" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-engine/streaming-tweets-engine_main.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-engine/streaming-tweets-engine_main.iml" group="streaming-tweets-engine" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-engine/streaming-tweets-engine_test.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-engine/streaming-tweets-engine_test.iml" group="streaming-tweets-engine" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-kernel/streaming-tweets-kernel.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-kernel/streaming-tweets-kernel.iml" group="streaming-tweets-kernel" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-kernel/streaming-tweets-kernel_main.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-kernel/streaming-tweets-kernel_main.iml" group="streaming-tweets-kernel" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-kernel/streaming-tweets-kernel_test.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-kernel/streaming-tweets-kernel_test.iml" group="streaming-tweets-kernel" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-server/streaming-tweets-server.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-server/streaming-tweets-server.iml" group="streaming-tweets-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-server/streaming-tweets-server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-server/streaming-tweets-server_main.iml" group="streaming-tweets-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/streaming-tweets-server/streaming-tweets-server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/streaming-tweets-server/streaming-tweets-server_test.iml" group="streaming-tweets-server" />
     </modules>
   </component>
 </project>
