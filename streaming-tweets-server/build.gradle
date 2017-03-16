@@ -1,10 +1,53 @@
 project(":streaming-tweets-server") {
 
+    apply plugin: 'distribution'
+
+    apply plugin: 'application'
+    mainClassName = "com.jacobparr.twit.streamer.TwitStreamer"
+
     version = structuredTweetsVersion
 
     dependencies {
         compile("org.twitter4j:twitter4j-stream:4.0.6")
         compile("org.tiogasolutions.dev:tioga-dev-jackson:+")
+    }
+
+    task aws << {
+        File buildfile = file("$buildDir/aws/Buildfile")
+        buildfile.parentFile.mkdirs()
+        FileWriter writer = new FileWriter(buildfile)
+        writer.write("build: unzip -qo ${project.name}-${project.version}.zip\n")
+        writer.close()
+
+        File procfile = file("$buildDir/aws/Procfile")
+        procfile.parentFile.mkdirs()
+        writer = new FileWriter(procfile)
+        writer.write("web: ${project.name}-${project.version}/bin/${project.name}\n")
+        writer.close()
+    }
+
+    distributions {
+        main {
+            contents {
+                into("lib") {
+                    from(jar)
+                    from(project.configurations.runtime)
+                }
+            }
+        }
+    }
+
+    jar {
+        manifest {
+            attributes(
+                    "Module-Name": project.name,
+                    "Implementation-Version": project.version,
+                    "Build-Number": "${System.getenv('CODEBUILD_SOURCE_VERSION')}",
+                    "Build-Timestamp": new Date().format("yyyy-MM.dd HH:mm:ss"),
+                    "Main-Class": "${mainClassName}",
+                    "Class-Path": configurations.compile.collect { "./libs/" + it.getName() }.join(" ")
+            )
+        }
     }
 
     apply(from: urlCache.get("https://raw.githubusercontent.com/tioga/build-scripts/master/build-config-deployer.gradle"))
