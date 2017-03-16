@@ -4,16 +4,25 @@ import java.nio.channels.SocketChannel;
 
 public class ChangeRequest {
 
-    public static final int REGISTER = 1;
-    public static final int CHANGEOPS = 2;
+    private SocketChannel socketChannel;
+    private ChangeRequestType type;
+    private int ops;
 
-    public SocketChannel socket;
-    public int type;
-    public int ops;
-
-    public ChangeRequest(SocketChannel socket, int type, int ops) {
-        this.socket = socket;
+    public ChangeRequest(SocketChannel socketChannel, ChangeRequestType type, int ops) {
+        this.socketChannel = socketChannel;
         this.type = type;
         this.ops = ops;
+    }
+
+    public SocketChannel getSocketChannel() {
+        return socketChannel;
+    }
+
+    public ChangeRequestType getType() {
+        return type;
+    }
+
+    public int getOps() {
+        return ops;
     }
 }

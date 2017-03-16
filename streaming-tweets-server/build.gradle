@@ -4,7 +4,7 @@ project(":streaming-tweets-server") {
 
     dependencies {
         compile("org.twitter4j:twitter4j-stream:4.0.6")
-        compile("org.tiogasolutions.dev:tioga-dev-common:+")
+        compile("org.tiogasolutions.dev:tioga-dev-jackson:+")
     }
 
     apply(from: urlCache.get("https://raw.githubusercontent.com/tioga/build-scripts/master/build-config-deployer.gradle"))
