@@ -1,9 +1,9 @@
-package com.jacobparr.twitter.streaming;
+package com.jacobparr.twit.streamer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.jacobparr.twitter.streaming.server.Server;
+import com.jacobparr.twit.streamer.server.Server;
 import org.tiogasolutions.dev.jackson.TiogaJacksonObjectMapper;
 import twitter4j.StallWarning;
 import twitter4j.Status;

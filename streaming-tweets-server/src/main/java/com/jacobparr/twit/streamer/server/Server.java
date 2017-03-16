@@ -1,6 +1,4 @@
-package com.jacobparr.twitter.streaming.server;
-
-import org.tiogasolutions.dev.common.ReflectUtils;
+package com.jacobparr.twit.streamer.server;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -13,49 +11,35 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.spi.SelectorProvider;
 import java.nio.charset.Charset;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server implements Runnable {
 
-    // The host:port combination to listen on
-    private InetAddress hostAddress;
-    private int port;
-
     // The selector we'll be monitoring
     private Selector selector;
 
     // The buffer into which we'll read data when it's available
-    private ByteBuffer readBuffer = ByteBuffer.allocate(8192);
+    private ByteBuffer readBuffer = ByteBuffer.allocate(1024);
 
-    // A list of PendingChange instances
-    private final List<ChangeRequest> pendingChanges = new LinkedList<>();
-
-    // Maps a SocketChannel to a list of ByteBuffer instances
+    // The pending data for a given socket
     private final Map<SocketChannel,ConcurrentLinkedQueue<String>> pendingData = new ConcurrentHashMap<>();
 
-    private final List<SocketChannel> activeChannels = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArrayList<SocketChannel> activeChannels = new CopyOnWriteArrayList<>();
 
     public Server(InetAddress hostAddress, int port) throws IOException {
-        this.hostAddress = hostAddress;
-        this.port = port;
-        this.selector = this.initSelector();
+        this.selector = this.initSelector(hostAddress, port);
     }
 
     public void send(String data) {
 
-        synchronized (pendingChanges) {
+        synchronized (activeChannels) {
             for (SocketChannel socketChannel: activeChannels) {
 
                 // Indicate we want the interest ops set changed
-                // socketChannel.keyFor(selector).interestOps(SelectionKey.OP_WRITE);
-
-                pendingChanges.add(new ChangeRequest(socketChannel, ChangeRequestType.CHANGEOPS, SelectionKey.OP_WRITE));
+                socketChannel.keyFor(selector).interestOps(SelectionKey.OP_WRITE);
 
                 // And queue the data we want written
                 synchronized (pendingData) {
@@ -73,26 +57,15 @@ public class Server implements Runnable {
         // noinspection InfiniteLoopStatement
         for (;;) {
             try {
-                // Process any pending changes
-                synchronized (pendingChanges) {
-                    for (ChangeRequest change : pendingChanges) {
-                        switch (change.getType()) {
-                            case CHANGEOPS:
-                                SelectionKey key = change.getSocketChannel().keyFor(selector);
-                                key.interestOps(change.getOps());
-                        }
-                    }
-                    pendingChanges.clear();
-                }
-
                 // Wait for an event one of the registered channels
                 selector.select();
 
                 // Iterate over the set of keys for which events are available
-                SelectionKey[] keys = ReflectUtils.toArray(SelectionKey.class, selector.selectedKeys());
+                Iterator<SelectionKey> it = selector.selectedKeys().iterator();
 
-                for (SelectionKey key : keys) {
-                    selector.selectedKeys().remove(key);
+                while(it.hasNext()) {
+                    SelectionKey key = it.next();
+                    it.remove();
 
                     if (!key.isValid()) {
                         continue;
@@ -107,6 +80,7 @@ public class Server implements Runnable {
                         write(key);
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -192,7 +166,7 @@ public class Server implements Runnable {
         }
     }
 
-    private Selector initSelector() throws IOException {
+    private Selector initSelector(InetAddress hostAddress, int port) throws IOException {
         // Create a new selector
         Selector socketSelector = SelectorProvider.provider().openSelector();
 

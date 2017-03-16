@@ -1,4 +1,4 @@
-package com.jacobparr.twitter.streaming.server;
+package com.jacobparr.twit.streamer.server;
 
 import java.nio.channels.SocketChannel;
 
