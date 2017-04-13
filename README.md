@@ -1,4 +1,4 @@
-# streaming-tweets
+# TwitStreamer
 
 TwitStreamer is a application used to help demonstrate Apache Spark's Streaming & Structured Streaming APIs
 
